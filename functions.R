@@ -33,7 +33,7 @@ factor_sampler <- function (levelsnr, nrgroups, samplesize,
     replicate(n=nrgroups,  # repeat n times depending on number of groups
          sample(base[1:levelsnr], size = samplesize, replace = T),  # generate factor variable for given number of fator levels and sample size
          simplify = T))
-  data <- fastDummies::dummy_cols(sample) # TODO
+  data <- fastDummies::dummy_cols(sample)
 
   # Set of relevant groups (min 2, above given level of sparsity)
   # choose if nonzero groups should be random or the first n groups
@@ -42,19 +42,19 @@ factor_sampler <- function (levelsnr, nrgroups, samplesize,
   # simulate coefficients
   # note: if many levels not all levels might be observed in data. Coeffs will
   # be assigned NA and will be dropped later
-  coefs <- matrix(nrow = levelsnr, ncol = nrgroups) #TODO omitted dummy
+  coefs <- matrix(nrow = levelsnr, ncol = nrgroups)
   observed_factorlevels <- c()
   for (i in 1:nrgroups){
-    observed_factorlevels[i] <- length(table(data[,i]))  # TODO
-    values <- runif(length(table(data[,i])), -5, 5) # TODO
-    coefs[,i] <- append(values, rep(NA, levelsnr - length(values))) # TODO
+    observed_factorlevels[i] <- length(table(data[,i]))
+    values <- runif(length(table(data[,i])), -5, 5)
+    coefs[,i] <- append(values, rep(NA, levelsnr - length(values)))
   }
 
   # account for sparsity (note that not all levels of factors might be observed)
   # group sparsity
   for (i in 1:nrgroups){
     if (relevant_groups[i] == 0){
-      for (j in 1:(levelsnr)){ # TODO
+      for (j in 1:(levelsnr)){
         if (!is.na(coefs[j,i])){
           coefs[j,i] <- 0
         }
@@ -64,9 +64,9 @@ factor_sampler <- function (levelsnr, nrgroups, samplesize,
   # within group sparsity (note that relevant level randomly assinged per factor)
   relevant_levels <- list()
   for (i in 1:nrgroups){
-    levl_rel <- rbinom(levelsnr, 1, 1-withinsparsity) # TODO
+    levl_rel <- rbinom(levelsnr, 1, 1-withinsparsity)
     relevant_levels[[i]] <- levl_rel
-    for (j in 1:(levelsnr)) # TODO
+    for (j in 1:(levelsnr))
       if (levl_rel[j] == 0 & !is.na(coefs[j,i])){
       coefs[j,i] <- 0
       }
