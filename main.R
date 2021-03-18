@@ -268,7 +268,7 @@ levelrange <- c(6, 10, 15, 30,50)
 grsparsityrange <- c(0.25, 0.5, 0.75)
 withinsparsityrange <- c(0, 0.5)
 corr <- 0.2
-grouprange <- c(seq(4, 100, by=1))
+grouprange <- c(seq(4, 100, by=2))
 alpharange <- c(0.3,0.9)
 
 samplesize <- 100
@@ -289,6 +289,8 @@ for (grsparsity in grsparsityrange){
 print(paste("grspars:", grsparsity))
 for (withinsparsity in withinsparsityrange){
 print(paste("within:", withinsparsity))
+for (corr in correlationrange){
+print(paste("corr:", corr))
 for (alpha in alpharange){
 print(paste("alpha:", alpha))
 for (g in grouprange){
@@ -419,7 +421,7 @@ ggplot(NULL) +
 }
 }
 }
-
+}
 
 
 
