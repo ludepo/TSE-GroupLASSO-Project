@@ -8,7 +8,7 @@ library(reshape2)
 
 
 # load script with functions
-source(paste0(getwd(),'/functions.R'))
+source(paste0(getwd(), '/CODE/functions.R'))
 
 # ******************************************************************************
 # ** Introductory Examples  ****************************************************
